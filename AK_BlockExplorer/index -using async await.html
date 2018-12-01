@@ -74,7 +74,6 @@
       //Get number of last block --> Use a loop to get the last 10 block numbers --> Get the block for each number & print
       provider.getBlockNumber().then(
           async (blockNumber) => {
-          // Iterate for the number of required blocks
             for (i=0; i<10; i++) {
               blockNumber -= 1;
               block = await provider.getBlock(blockNumber);

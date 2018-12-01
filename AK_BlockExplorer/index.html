@@ -53,23 +53,15 @@
     <script>
         window.onload = function() {
           updateBlocks();
-
         }
-
-
     function updateBlocks() {
-
       let provider = ethers.getDefaultProvider();
-
       /////Get the gas price and pass it on to the printGasPrice function
-
       provider.getGasPrice().then((gasPrice) => {
       // gasPrice is a BigNumber; convert it to a decimal string
       gasPriceString = gasPrice.toString();
       printGasPrice(gasPriceString);
       });
-
-
       /////Print a set of the last 10 Blocks:
       //Get number of last block --> Use a loop to get the last 10 block numbers --> Get the block for each number & print
         provider.getBlockNumber().then(
@@ -84,15 +76,7 @@
             }
         );
 
-
-        //Output is out of order. What if we use an array?
-
-
-
-
-
   }
-
         // Display gas price on the relevant space in the html page
         function printGasPrice(gasPrice) {
           var gasPriceText = document.getElementById('gasPrice');
@@ -100,7 +84,6 @@
         }
 
         // Display block information on the relevant table fields in the html page
-
         function printBlock(block) {
           var table = document.getElementById('blocks');
           var row = table.insertRow(-1);
