@@ -51,10 +51,11 @@ contract ERC20 is IERC20 {
   function transfer(address to, uint256 value) public returns (bool) {
     //conditions: owner has enough tockens
     require(_balances[msg.sender] >= value);
-
+    require(to != address(0));
     // debit value from "owner" and credit value to "to"
     _balances[msg.sender] = _balances[msg.sender].sub(value);
     _balances[to] = _balances[to].add(value);
+    emit Transfer(msg.sender, to, value);
     return true;
   }
 
@@ -67,8 +68,9 @@ contract ERC20 is IERC20 {
    */
   function approve(address spender, uint256 value) public returns (bool) {
     //conditions: spender not already approved and if already approved, value is higher than current approval
-    require (allowance(msg.sender, spender) < value);
+    require (spender != address(0));
     _allowed[msg.sender][spender] = value;
+    emit Approval(msg.sender, spender, value);
     return true;
   }
 
@@ -82,8 +84,12 @@ contract ERC20 is IERC20 {
     // conditions: "from" address is authorized to transfer "value" and that there are enough tokens
     require (allowance(from, msg.sender) >= value);
     require (_balances[from] >= value);
+    require (to != address(0));
     _balances[from] = _balances[from].sub(value);
     _balances[to] = _balances[to].add(value);
+    _allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value);
+    emit Transfer(from, to, value);
+    to.transfer(value);
     return true;
   }
 
